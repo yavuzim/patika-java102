@@ -32,17 +32,10 @@ public class Game {
         firsRound = new ArrayList<>();
         secondRound = new ArrayList<>();
         List<String> temp = this.teams;
-        for (int i = 0; i < (temp.size() + 4) / 2; i++) {
-            int homeIndex = 0;
-            int awayIndex = 0;
-            while (homeIndex == awayIndex) {
-                homeIndex = random.nextInt(0, this.teams.size());
-                awayIndex = random.nextInt(0, this.teams.size());
+        for (int i = 0; i < (this.teams.size() + 4) / 2; i++) {
+            for (int j = 0; j < this.teams.size(); j += 2) {
+                
             }
-            firsRound.add(teams.get(homeIndex) + " vs " + this.teams.get(awayIndex));
-            secondRound.add(teams.get(awayIndex) + " vs " + this.teams.get(homeIndex));
-            this.teams.remove(homeIndex);
-            this.teams.remove(awayIndex);
         }
         System.out.println(firsRound);
         System.out.println(secondRound);
