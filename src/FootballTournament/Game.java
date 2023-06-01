@@ -2,27 +2,50 @@ package FootballTournament;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Random;
 
 public class Game {
     private int teamsCount;
     private List<String> teams;
+    private Random random;
+    private List<String> firsRound;
+    private List<String> secondRound;
+    private int rnd;
 
 
     public Game(int teamsCount) {
         this.teamsCount = teamsCount;
+        random = new Random();
         teams = new ArrayList<>();
         System.out.println("---TAKIMLARI GİRİNİZ---");
-        System.out.println("**");
+        Line.draw(2, "*");
         createTeams();
-        System.out.println("**");
+        Line.draw(2, "*");
         System.out.println("Takımlar : ");
-        teamsList();
+        this.draw();
     }
 
     public void start() {
         System.out.println("***** TURNUVA MAÇLARI *****");
         System.out.println("Takım Sayısı : " + teams.size());
+        Line.draw(2, "*");
+        firsRound = new ArrayList<>();
+        secondRound = new ArrayList<>();
+        List<String> temp = this.teams;
+        for (int i = 0; i < (temp.size() + 4) / 2; i++) {
+            int homeIndex = 0;
+            int awayIndex = 0;
+            while (homeIndex == awayIndex) {
+                homeIndex = random.nextInt(0, this.teams.size());
+                awayIndex = random.nextInt(0, this.teams.size());
+            }
+            firsRound.add(teams.get(homeIndex) + " vs " + this.teams.get(awayIndex));
+            secondRound.add(teams.get(awayIndex) + " vs " + this.teams.get(homeIndex));
+            this.teams.remove(homeIndex);
+            this.teams.remove(awayIndex);
+        }
+        System.out.println(firsRound);
+        System.out.println(secondRound);
     }
 
     private void createTeams() {
@@ -37,6 +60,32 @@ public class Game {
         for (int i = 0; i < teams.size(); i++) {
             System.out.println(teams.get(i));
         }
+    }
+
+    private void draw() {
+        Object[] temp = teams.toArray();
+        for (int i = 0; i < teams.size(); i++) {
+            teams.set(i, null);
+        }
+        for (int i = 0; i < temp.length; i++) {
+            this.rnd = random.nextInt(0, temp.length);
+            if (teams.get(0) == null)
+                teams.set(0, (String) temp[this.rnd]);
+            else {
+                int index = 0;
+                while (index < teams.size()) {
+                    if (teams.get(index) == temp[this.rnd] && teams.get(index) != null) {
+                        this.rnd = random.nextInt(0, temp.length);
+                        index = 0;
+                        continue;
+                    }
+                    if (teams.get(index) == null) break;
+                    index++;
+                }
+                teams.set(i, (String) temp[this.rnd]);
+            }
+        }
+        System.out.println(this.teams);
     }
 
     public int getTeamsCount() {
