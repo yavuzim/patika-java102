@@ -18,9 +18,13 @@ public class Game {
 
 
     public Game(int teamsCount) {
+        teams = new ArrayList<>();
+        if (teamsCount % 2 != 0) {
+            teams.add("Bay");
+            teamsCount += 1;
+        }
         this.teamsCount = teamsCount;
         random = new Random();
-        teams = new ArrayList<>();
         System.out.println("---TAKIMLARI GİRİNİZ---");
         Line.draw(2, "*");
         createTeams();
@@ -35,14 +39,61 @@ public class Game {
         Line.draw(2, "*");
         firsRound = new ArrayList<>();
         secondRound = new ArrayList<>();
-        this.home = -1;
-        this.away = -1;
         System.out.println(firsRound);
         System.out.println(secondRound);
         Line.draw(8, "-");
+        int index = 0;
+        for (int i = 1; i <= this.teamsCount - 1; i++) { // 1.yarı hafta sayısı
+            for (int j = 0; j < this.teamsCount / 2; j++) { // İlgili haftada kaç maçın olacağı.
+                this.generateIndex();
+                if (this.firsRound.size() < this.teamsCount) { // 1.hafta ise
+                    while (this.teamControl(i)) {
+                        this.generateIndex();
+                    }
+                } else { // 1.haftadan sonra ise
+                    boolean flag = false;
+                    while (flag == false) {
+                        while (this.teamControl(i)) {
+                            this.generateIndex();
+                        }
+                        String team = this.teams.get(this.home);
+                        int teamIndex = -1;
+                        for (int k = 0; k < this.firsRound.size(); k++) {
+                            if (team.equals(this.firsRound.get(j))) {
+                                teamIndex = j;
+                                if (teamIndex % 2 == 0)
+                                    teamIndex -= 1;
+                                else teamIndex += 1;
+
+                                if (this.teams.get(this.away).equals(this.firsRound.get(teamIndex))) {
+                                    flag = false;
+                                    break;
+                                } else flag = true;
+                            }
+                        }
+                    }
+                }
+                this.competitionCreate(index, index + 1, this.teams.get(this.home), this.teams.get(this.away));
+                index += 2;
+            }
+        }
         this.print(this.firsRound, this.secondRound);
     }
 
+    private boolean teamControl(int i) {
+        boolean flag = false;
+        int start = (this.firsRound.size() * i) - this.firsRound.size();
+        int finish = this.firsRound.size() * i;
+        for (int k = start; k < finish; k++) {
+            if (this.firsRound.get(k) != null) {
+                if (this.teams.get(this.home).equals(this.firsRound.get(k)) || this.teams.get(this.away).equals(this.firsRound.get(k))) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
 
 
     private void competitionCreate(int a, int b, String team1, String team2) {
@@ -53,11 +104,13 @@ public class Game {
     }
 
     private void generateIndex() {
-        this.home = this.random.nextInt(0, this.teams.size());
-        this.away = this.random.nextInt(0, this.teams.size());
+        this.home = -1;
+        this.away = -1;
+        while (this.home == this.away) {
+            this.home = this.random.nextInt(0, this.teams.size());
+            this.away = this.random.nextInt(0, this.teams.size());
+        }
     }
-
-    
 
     private void createTeams() {
         for (int i = 0; i < this.getTeamsCount(); i++) {
@@ -68,13 +121,23 @@ public class Game {
     }
 
     private void print(List<String> firsRound, List<String> secondRound) {
-        for (int i = 0; i < firsRound.size(); i += 2) {
-            System.out.println(i + 1 + ". hafta");
-            System.out.println(firsRound.get(i) + " vs " + firsRound.get(i + 1));
+        int n = 0;
+        for (int i = 1; i <= this.teamsCount - 1; i++) {
+            System.out.println(i + ". Hafta");
+            for (int j = this.teamsCount * i - this.teamsCount; j < this.teamsCount * i; j++) {
+                System.out.println(firsRound.get(j) + " vs " + firsRound.get(j + 1));
+                Line.draw(5, "-");
+            }
         }
-        for (int i = 0; i < secondRound.size(); i += 2) {
-            System.out.println(i + 1 + ". hafta");
-            System.out.println(secondRound.get(i) + " vs " + secondRound.get(i + 1));
+        Line.draw(5, "*");
+        System.out.println("İKİNCİ TUR");
+        Line.draw(5, "*");
+        for (int i = 1; i <= this.teamsCount - 1; i++) {
+            System.out.println(i + ". Hafta");
+            for (int j = this.teamsCount * i - this.teamsCount; j < this.teamsCount * i; j++) {
+                System.out.println(secondRound.get(j) + " vs " + secondRound.get(j + 1));
+                Line.draw(5, "-");
+            }
         }
     }
 

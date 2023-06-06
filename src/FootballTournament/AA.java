@@ -1,11 +1,17 @@
 package FootballTournament;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AA {
     public static void main(String[] args) {
-        System.out.println(1%2);
+        List<String> x = new ArrayList<>();
+
+        System.out.println(x);
+        x.add(null);
+        x.add(null);
+        x.add(null);
+        System.out.println(x);
+        System.out.println(x.get(0));
     }
 }
