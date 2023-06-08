@@ -14,6 +14,9 @@ public abstract class Product {
     private double screenSize;
     public static List<Product> products = new ArrayList<>();
 
+    public Product(String name) {
+        this.name = name;
+    }
 
     public Product(int id, double price, int discountRate, int stock, String name, String brand, int ram, double screenSize) {
         this.id = id;

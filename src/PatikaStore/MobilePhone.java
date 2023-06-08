@@ -9,6 +9,9 @@ public class MobilePhone extends Product {
     private String color;
     public static List<MobilePhone> mobilePhones = new ArrayList<>();
 
+    public MobilePhone() {
+        super("Telefon");
+    }
 
     public MobilePhone(int id, double price, int discountRate, int stock, String brand, int ram, double screenSize) {
         super(id, price, discountRate, stock, "Telefon", brand, ram, screenSize);

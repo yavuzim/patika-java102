@@ -1,50 +1,67 @@
 package PatikaStore;
 
-import FootballTournament.Line;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SystemUI {
-    private static Scanner input = new Scanner(System.in);
+
+    private static String[] menu;
+    private static List<Product> products;
+    private static int selectedProcess;
 
     public static void show() {
         System.out.println("*** PATİKA STORE'YE HOŞGELNİZİ ***");
-        line(25, "*");
-        String[] menu = {"Ürün Ekle", "Ürün Sil", "Ürün Güncelle", "Marka Ekle", "Ürünleri Listele", "Markaları Listele", "Ürünleri Filtrele", "Çıkış Yap"};
-
+        Line.line(25, "*");
+        menu = new String[]{"Ürün İşlemleri", "Marka İşlemleri", "Çıkış Yap"};
+        products = new ArrayList<>();
+        products.add(new MobilePhone());
+        products.add(new Notebook());
         int index = 1;
         for (String process : menu) {
             System.out.println(index + " - " + process);
             index++;
         }
-        line(25, "*");
-        processInput(menu);
+        Line.line(25, "*");
+        while (selectedProcess < 1 || selectedProcess > menu.length) {
+            selectedProcess = Input.processInput("Yapılacak İşlem : ");
+        }
+        Line.line(8, "...");
+        switch (selectedProcess) {
+            case 1:
+                System.out.println("*** " + menu[selectedProcess - 1] + " ***");
+                productProcess();
+                break;
+            case 2:
+                System.out.println(menu[selectedProcess - 1]);
+                break;
+            case 3:
+                System.out.println("Çıkış Yapıldı!");
+                break;
+        }
+        Line.line(8, "...");
     }
 
-    private static void processInput(String[] menu) {
-        try {
-            input("Yapılacak İşlem : ");
-        } catch (InputMismatchException e) {
-            System.out.println("1 - " + menu.length + " Arası Değerler Giriniz");
-            line(8, "-");
-            input.nextLine();
-            processInput(menu);
+    private static void productProcess() {
+        String[] process = {"Ürün Ekle", "Ürün Güncelle", "Ürün Sil", "Ürünleri Getir", "Ürünleri Ayrıntıları", "Ana Menuye Dön"};
+        for (int i = 0; i < process.length; i++) {
+            System.out.println((i + 1) + " - " + process[i]);
         }
+        selectedProcess = 0;
+        List<Product> products = prodcutList();
+        while (selectedProcess < 1 || selectedProcess > products.size()) {
+            selectedProcess = Input.processInput("Yapılacak İşlemi Seçin : ");
+        }
+        System.out.println("Yapılacak İşlem : " + products.get(selectedProcess - 1).getName());
+
     }
 
-    private static void input(String message) {
-        int n = 0;
-        while (n < 1 || n > 8) {
-            System.out.print(message);
-            n = input.nextInt();
+    private static List<Product> prodcutList() {
+        System.out.println("*** ÜRÜNLER *** ");
+        for (int i = 0; i < products.size(); i++) {
+            System.out.println((i + 1) + " - " + products.get(i).getName());
         }
+        return products;
     }
 
-    private static void line(int n, String shape) {
-        for (int i = 1; i <= n; i++) {
-            System.out.print(shape);
-        }
-        System.out.println();
-    }
+
 }

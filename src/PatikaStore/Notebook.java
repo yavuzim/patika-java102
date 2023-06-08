@@ -7,6 +7,9 @@ public class Notebook extends Product {
     private String storage; // depolama
     public static List<MobilePhone> notebooks = new ArrayList<>();
 
+    public Notebook() {
+        super("Notebook");
+    }
 
     public Notebook(int id, double price, int discountRate, int stock, String brand, int ram, double screenSize) {
         super(id, price, discountRate, stock, "Notebook", brand, ram, screenSize);
