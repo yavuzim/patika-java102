@@ -4,42 +4,44 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Brand {
-    private int brandID;
-    private String brandName;
-    public static List<Brand> brands = new ArrayList<>();
+public abstract class Brand {
+    private int id;
+    private String name;
+    private static List<Brand> brands;
 
-    public Brand(int brandID, String brandName) {
-        this.brandID = brandID;
-        this.brandName = brandName;
+    public Brand(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public int getBrandID() {
-        return brandID;
+    public static List<Brand> brandsList() {
+        brands = new ArrayList<>();
+        brands.add(new Samsung());
+        brands.add(new Lenovo());
+        brands.add(new Apple());
+        brands.add(new Huawei());
+        brands.add(new Casper());
+        brands.add(new Asus());
+        brands.add(new HP());
+        brands.add(new Xiaomi());
+        brands.add(new Monster());
+        brands.sort(Comparator.comparing(Brand::getName)); // A'dan Z'ye sıralar.
+        return brands;
     }
 
-    public void setBrandID(int brandID) {
-        this.brandID = brandID;
+    public int getId() {
+        return id;
     }
 
-    public String getBrandName() {
-        return brandName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public String getName() {
+        return name;
     }
 
-    static {
-        brands.add(new Brand(1,"Samsung"));
-        brands.add(new Brand(2,"Lenovo"));
-        brands.add(new Brand(3,"Apple"));
-        brands.add(new Brand(4,"Huwaei"));
-        brands.add(new Brand(5,"Casper"));
-        brands.add(new Brand(6,"Asus"));
-        brands.add(new Brand(7,"HP"));
-        brands.add(new Brand(8,"Xiaomi"));
-        brands.add(new Brand(9,"Monster"));
-        brands.sort(Comparator.comparing(Brand::getBrandName)); // Markaları A'dan Z'ye sıralar.
+    public void setName(String name) {
+        this.name = name;
     }
 }
