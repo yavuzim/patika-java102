@@ -14,7 +14,7 @@ public abstract class Brand {
         this.name = name;
     }
 
-    public static List<Brand> brandsList() {
+    public static List<Brand> brands() {
         brands = new ArrayList<>();
         brands.add(new Samsung());
         brands.add(new Lenovo());
@@ -27,6 +27,20 @@ public abstract class Brand {
         brands.add(new Monster());
         brands.sort(Comparator.comparing(Brand::getName)); // A'dan Z'ye sıralar.
         return brands;
+    }
+
+    public static void brandList() {
+        List<Brand> getBrands = brands();
+        if (getBrands.size() == 0)
+            System.out.println("Marka Girişi Yok");
+        else {
+            int index = 1;
+            System.out.println("** MARKALAR **");
+            for (Brand brand : getBrands) {
+                System.out.println(index + " - " + "ID : " + brand.getId() + "\tMarka : " + brand.getName());
+                index++;
+            }
+        }
     }
 
     public int getId() {
