@@ -24,8 +24,7 @@ public class Notebook extends Product {
             notebook.setStock(Input.in.nextInt());
             Brand.brandList();
             System.out.print("Marka : ");
-            int selectBrand = Input.in.nextInt();
-            notebook.setBrand(Brand.brands().get(selectBrand - 1));
+            notebook.setBrand(Product.brandSelect(Input.in.nextInt()));
             System.out.print("Hafıza (GB) : ");
             notebook.setMemory(Input.in.nextInt());
             System.out.print("Ekran Boyutu : ");

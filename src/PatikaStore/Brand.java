@@ -34,11 +34,9 @@ public abstract class Brand {
         if (getBrands.size() == 0)
             System.out.println("Marka Girişi Yok");
         else {
-            int index = 1;
             System.out.println("** MARKALAR **");
             for (Brand brand : getBrands) {
-                System.out.println(index + " - " + "ID : " + brand.getId() + "\tMarka : " + brand.getName());
-                index++;
+                System.out.println("ID : " + brand.getId() + "\tMarka : " + brand.getName());
             }
         }
     }

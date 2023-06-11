@@ -39,6 +39,15 @@ public abstract class Product {
         return products;
     }
 
+    public static Brand brandSelect(int id) {
+        Brand resultBrand = null;
+        List<Brand> brands = Brand.brands();
+        for (Brand brandValue : brands)
+            if (brandValue.getId() == id)
+                resultBrand = brandValue;
+        return resultBrand;
+    }
+
     public int getId() {
         return id;
     }

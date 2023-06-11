@@ -25,8 +25,7 @@ public class MobilePhone extends Product {
             mobilePhone.setStock(Input.in.nextInt());
             Brand.brandList();
             System.out.print("Marka : ");
-            int selectBrand = Input.in.nextInt();
-            mobilePhone.setBrand(Brand.brands().get(selectBrand - 1));
+            mobilePhone.setBrand(Product.brandSelect(Input.in.nextInt()));
             System.out.print("Hafıza (GB) : ");
             mobilePhone.setMemory(Input.in.nextInt());
             System.out.print("Ekran Boyutu : ");
@@ -39,6 +38,8 @@ public class MobilePhone extends Product {
             mobilePhone.setTotalPrice(mobilePhone.getPrice() * (100 + mobilePhone.getDiscountRate()) / 100);
 
             mobilePhones.add(mobilePhone);
+            System.out.println(mobilePhone.getBrand().getName());
+            System.out.println("***");
         }
     }
 
