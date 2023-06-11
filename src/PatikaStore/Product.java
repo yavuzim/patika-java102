@@ -22,13 +22,13 @@ public abstract class Product {
         this.name = name;
     }
 
-    abstract void add();
+    abstract void add(int total);
 
     abstract Product delete(int id);
 
     abstract void update(int id);
 
-    public abstract List<Product> list();
+    public abstract void list();
 
     abstract void filter(String brand);
 

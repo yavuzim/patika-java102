@@ -10,17 +10,20 @@ public class SystemUI {
         System.out.println("----------------------------------------------------------------");
         System.out.println("**** |PATİKA STORE'YE HOŞ GELDİNİZ| ****");
         System.out.println("----------------------------------------------------------------");
+        boolean flag = true;
+        while (flag) {
+            homePage();
+            flag = actions();
+            System.out.println("----------------------------------------------------------------");
+            System.out.println("ANA MENÜYE DÖNMEK İÇİN |e|, ÇIKMAK İÇİN HERHANGİ BİR TUŞA BASINIZ.");
+            System.out.print("Seç : ");
+            String choose = Input.in.nextLine();
+            if (choose.equals("e") || choose.equals("E"))
+                flag = !flag;
+        }
+    }
 
-        System.out.println("--- MENU ---"
-                + "\n1 - Ürün Gruplarını Listele"
-                + "\n2 - Ürünleri Listele"
-                + "\n3 - Markaları Listele"
-                + "\n4 - Ürün Ekle"
-                + "\n5 - Ürün Sil"
-                + "\n6 - Ürün Güncelle"
-                + "\n7 - Ürün Filtrele"
-                + "\n8 - Çıkış Yap");
-
+    private static boolean actions() {
         int choose = 0;
         while (choose < 1 || choose > 7) {
             System.out.print("Seç : ");
@@ -49,6 +52,21 @@ public class SystemUI {
                 logOut();
                 break;
         }
+        Input.in.nextLine();
+        if (choose != 8) return true;
+        return false;
+    }
+
+    private static void homePage() {
+        System.out.println("--- MENU ---"
+                + "\n1 - Ürün Gruplarını Listele"
+                + "\n2 - Ürünleri Listele"
+                + "\n3 - Markaları Listele"
+                + "\n4 - Ürün Ekle"
+                + "\n5 - Ürün Sil"
+                + "\n6 - Ürün Güncelle"
+                + "\n7 - Ürün Filtrele"
+                + "\n8 - Çıkış Yap");
     }
 
     private static void productGroupList() {
@@ -63,7 +81,7 @@ public class SystemUI {
 
         for (Product product : products) {
             System.out.println("-> " + product.getName());
-            if (product.list().size() == 0) {
+            if (products.size() == 0) {
                 System.out.println("ÜRÜN YOK");
             } else {
                 product.list();
@@ -82,8 +100,10 @@ public class SystemUI {
             System.out.println("ID : " + product.getId() + "\tÜrün : " + product.getName());
         System.out.print("Ekleme Yapacağınız Ürünü Seçin : ");
         Product product = products.get(Input.in.nextInt() - 1);
+        System.out.print("Eklenecek Ürün Sayısı : ");
+        int total = Input.in.nextInt();
         System.out.println("---------------------------------------------");
-        product.add();
+        product.add(total);
     }
 
     private static void productDelete() {
