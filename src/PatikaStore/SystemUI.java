@@ -1,12 +1,14 @@
 package PatikaStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SystemUI {
-    private static List<Product> products;
+    private static List<Product> products = new ArrayList<>();
     private static int id;
 
     public static void start() {
+        products = Product.productList();
         System.out.println("----------------------------------------------------------------");
         System.out.println("**** |PATİKA STORE'YE HOŞ GELDİNİZ| ****");
         System.out.println("----------------------------------------------------------------");
@@ -28,6 +30,7 @@ public class SystemUI {
         while (choose < 1 || choose > 7) {
             System.out.print("Seç : ");
             choose = Input.in.nextInt();
+            Input.in.nextLine();
         }
         switch (choose) {
             case 1:
@@ -52,7 +55,6 @@ public class SystemUI {
                 logOut();
                 break;
         }
-        Input.in.nextLine();
         if (choose != 8) return true;
         return false;
     }
@@ -77,15 +79,15 @@ public class SystemUI {
     }
 
     private static void productList() {
-        List<Product> products = Product.productList();
-
+        System.out.println("**** KAYITLI ÜRÜNLER ****");
         for (Product product : products) {
-            System.out.println("-> " + product.getName());
+            System.out.println("-> " + product.getName() + " Listesi");
             if (products.size() == 0) {
                 System.out.println("ÜRÜN YOK");
             } else {
                 product.list();
             }
+            System.out.println();
         }
     }
 
@@ -95,7 +97,6 @@ public class SystemUI {
 
     private static void productAdd() {
         System.out.println("ÜRÜN EKLEME İŞLEMİ");
-        products = Product.productList();
         for (Product product : products)
             System.out.println("ID : " + product.getId() + "\tÜrün : " + product.getName());
         System.out.print("Ekleme Yapacağınız Ürünü Seçin : ");

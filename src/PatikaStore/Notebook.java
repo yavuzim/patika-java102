@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Notebook extends Product {
-    public List<Product> notebooks = new ArrayList<>();
+    public List<Notebook> notebooks = new ArrayList<>();
 
     public Notebook() {
         super(2, "Notebook");
@@ -53,6 +53,28 @@ public class Notebook extends Product {
 
     @Override
     public void list() {
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("| %1$-4s| %2$-20s| %3$-15s| %4$-15s| %5$-15s| %6$-15s| %7$-15s| %8$-15s| %9$-15s| %10$-15s| %11$-15s|%n",
+                "ID", "Ürün Adı", "Marka", "Renk", "Depolama", "RAM", "Stok",
+                "Ekran", "Fiyat", "İndirim Oranı", "Toplam Fiyat");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        if (notebooks.size() != 0) {
+            for (Notebook productNotebook : notebooks) {
+                System.out.printf("| %1$-4s| %2$-20s| %3$-15s| %4$-15s| %5$-15s| %6$-15s| %7$-15s| %8$-15s| %9$-15s| %10$-15s| %11$-15s|%n"
+                        , productNotebook.getId()
+                        , productNotebook.getName()
+                        , productNotebook.getBrand().getName()
+                        , productNotebook.getColor()
+                        , productNotebook.getMemory()
+                        , productNotebook.getRam()
+                        , productNotebook.getStock()
+                        , productNotebook.getScreenSize()
+                        , productNotebook.getPrice()
+                        , productNotebook.getDiscountRate()
+                        , productNotebook.getTotalPrice());
+                System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------s-----");
+            }
+        } else System.out.println("Kayıtlı Ürün Yok!");
     }
 
     @Override
