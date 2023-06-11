@@ -51,6 +51,9 @@ public class SystemUI {
             case 6:
                 productUpdate();
                 break;
+            case 7:
+                productFilter();
+                break;
             case 8:
                 logOut();
                 break;
@@ -108,7 +111,6 @@ public class SystemUI {
     }
 
     private static void productDelete() {
-        products = Product.productList();
         for (Product product : products)
             System.out.println("ID : " + product.getId() + "\tÜrün : " + product.getName());
         System.out.print("Silinecek Ürünün Id Numarası : ");
@@ -120,7 +122,6 @@ public class SystemUI {
     }
 
     private static void productUpdate() {
-        products = Product.productList();
         for (Product product : products)
             System.out.println("ID : " + product.getId() + "\tÜrün : " + product.getName());
         System.out.print("Güncellenecek Ürünün Id Numarası : ");
@@ -129,6 +130,15 @@ public class SystemUI {
         System.out.println("---------------------------------------------");
         product.update(id);
         System.out.println("Ürün Güncellendi!");
+    }
+
+    private static void productFilter() {
+        System.out.print("Ürün Filtrele, ID : ");
+        id = Input.in.nextInt();
+        Input.in.nextLine();
+        System.out.print("Marka : ");
+        String brand = Input.in.nextLine();
+        products.get(id - 1).filter(brand);
     }
 
     private static void logOut() {

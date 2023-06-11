@@ -50,7 +50,36 @@ public class MobilePhone extends Product {
 
     @Override
     void update(int id) {
-
+        int index = 0;
+        for (MobilePhone mobilePhone : mobilePhones) {
+            if (mobilePhone.getId() == id) {
+                System.out.print("ID : ");
+                mobilePhone.setId(Input.in.nextInt());
+                System.out.print("Fiyat : ");
+                mobilePhone.setPrice(Input.in.nextDouble());
+                System.out.print("İndirim Oranı : ");
+                mobilePhone.setDiscountRate(Input.in.nextInt());
+                System.out.print("Stok : ");
+                mobilePhone.setStock(Input.in.nextInt());
+                Brand.brandList();
+                System.out.print("Marka : ");
+                mobilePhone.setBrand(Product.brandSelect(Input.in.nextInt()));
+                System.out.print("Hafıza (GB) : ");
+                mobilePhone.setMemory(Input.in.nextInt());
+                System.out.print("Ekran Boyutu : ");
+                mobilePhone.setScreenSize(Input.in.nextDouble());
+                System.out.print("RAM : ");
+                mobilePhone.setRam(Input.in.nextInt());
+                Input.in.nextLine();
+                System.out.print("Renk : ");
+                mobilePhone.setColor(Input.in.nextLine());
+                mobilePhone.setTotalPrice(mobilePhone.getPrice() * (100 + mobilePhone.getDiscountRate()) / 100);
+                mobilePhones.set(index, mobilePhone);
+                System.out.println(mobilePhone.getId()+" ID numaralı ürün güncellendi!");
+                break;
+            }
+            index++;
+        }
     }
 
     @Override
@@ -81,6 +110,27 @@ public class MobilePhone extends Product {
 
     @Override
     void filter(String brand) {
-
+        for (MobilePhone mobilePhone : mobilePhones) {
+            if (mobilePhone.getBrand().getName().equals(brand)) {
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.printf("| %1$-4s| %2$-20s| %3$-15s| %4$-15s| %5$-15s| %6$-15s| %7$-15s| %8$-15s| %9$-15s| %10$-15s| %11$-15s|%n",
+                        "ID", "Ürün Adı", "Marka", "Renk", "Depolama", "RAM", "Stok",
+                        "Ekran", "Fiyat", "İndirim Oranı", "Toplam Fiyat");
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.printf("| %1$-4s| %2$-20s| %3$-15s| %4$-15s| %5$-15s| %6$-15s| %7$-15s| %8$-15s| %9$-15s| %10$-15s| %11$-15s|%n"
+                        , mobilePhone.getId()
+                        , mobilePhone.getName()
+                        , mobilePhone.getBrand().getName()
+                        , mobilePhone.getColor()
+                        , mobilePhone.getMemory()
+                        , mobilePhone.getRam()
+                        , mobilePhone.getStock()
+                        , mobilePhone.getScreenSize()
+                        , mobilePhone.getPrice()
+                        , mobilePhone.getDiscountRate()
+                        , mobilePhone.getTotalPrice());
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            }
+        }
     }
 }
